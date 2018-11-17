@@ -6,36 +6,94 @@
 #
 # Copyright (c) Stijn Wopereis, 2018
 
-import os
+import maya.cmds as cmds
 from Qt import QtCore, QtGui, QtWidgets
+
+from os.path import dirname, abspath, realpath, sep
+
+# Custom
+from gui.ToolWindow import ToolWindow
+from gui.UDIMWindow import UDIMWindow
+
+_ROOT_DIR = dirname(realpath(__file__))
 
 
 class MainWindow(QtWidgets.QMainWindow):
+    label_name = 'AutoTools by Wopster'
+    control_name = 'autotools_control'
+    width = 300
 
-    def __init__(self, *args, **kwds):
-        super(MainWindow, self).__init__(*args, **kwds)
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
 
-        # self.parent = parent
-        self.window_name = 'AutoToolsMain'
+        self.ui = parent
+        self.window_name = 'autotools'
 
-        # Set basic window properties
-        self.setWindowTitle('AutoTools')
+        self.setWindowIcon(QtGui.QIcon(_ROOT_DIR + sep + "icon.png"))
+
+        # self.main_layout = parent.layout()
+        self.main_layout = QtWidgets.QVBoxLayout(self)
+        self.main_layout.setContentsMargins(2, 2, 2, 2)
+        self.main_layout.setSpacing(0)
+
+        self.setWindowFlags(QtCore.Qt.Window)
         self.setObjectName(self.window_name)
+        self.setWindowTitle(self.label_name)
+        self.setProperty("saveWindowPref", True)
 
-        if os.name == 'nt':  # windows platform
-            self.setWindowFlags(QtCore.Qt.Window)
-        else:
-            self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.WindowStaysOnTopHint)
+        # Init full UI
+        self.init()
 
-        self.setProperty("saveWindowPref", True)  # maya's automatic window management
+        # Main widget
+        # self.widget = QtWidgets.QWidget()
+        # self.setCentralWidget(self.widget)
+        #
+        # window = QtWidgets.QMainWindow()
+        # window.setWindowTitle('Frame Widget Test')
+        #
+        # frame = FrameWidget('Frame Title', window)
+        #
+        # widget = QtWidgets.QWidget(frame)
+        # layout = QtWidgets.QVBoxLayout(widget)
+        # layout.setSpacing(0)
+        # layout.setContentsMargins(2, 2, 2, 2)
+        #
+        # widget.setLayout(layout)
+        # frame.setLayout(layout)
+        #
+        # for i in range(5):
+        #     layout.addWidget(QtWidgets.QPushButton('Button %s' % i, widget))
+        #
+        # # window.setCentralWidget(frame)
+        # self.setCentralWidget(self.toolWindow)
+        #
+        # self.main_layout.addWidget(self.toolWindow)
+        # self.widget.setLayout(self.main_layout)
 
-        # Define window dimensions
-        self.setMinimumWidth(400)
-        self.setMaximumWidth(800)
-        self.setMinimumHeight(400)
-        self.setMaximumHeight(800)
+    def init(self):
+        self.create_menu()
+        self.create_widgets()
+        self.create_layouts()
 
-        self.central_widget = QtWidgets.QWidget()
-        self.central_layout = QtWidgets.QVBoxLayout(self.central_widget)
-        self.central_layout.setContentsMargins(8, 8, 8, 8)
-        self.setCentralWidget(self.central_widget)
+    def create_menu(self):
+        bar = self.menuBar()
+        # Create Root Menus
+        file = bar.addMenu('Object')
+        edit = bar.addMenu('Help')
+
+    def create_widgets(self):
+        self.tool_window_widget = QtWidgets.QWidget()
+        self.tool_window = ToolWindow(self)
+        self.udim_window = UDIMWindow(self)
+
+        self.tab_control = QtWidgets.QTabWidget()
+        self.tab_control.addTab(self.tool_window, "Utils")
+        self.tab_control.addTab(self.udim_window, "UDIM")
+
+    def create_layouts(self):
+        # layout = QtWidgets.QVBoxLayout(self.tool_window_widget)
+        # self.tool_window_widget.setLayout(layout)
+        self.setCentralWidget(self.tab_control)
+
+    def run(self):
+        return self
