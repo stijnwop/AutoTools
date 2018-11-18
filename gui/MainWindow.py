@@ -7,7 +7,7 @@
 # Copyright (c) Stijn Wopereis, 2018
 
 import maya.cmds as cmds
-from Qt import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 
 from os.path import dirname, abspath, realpath, sep
 

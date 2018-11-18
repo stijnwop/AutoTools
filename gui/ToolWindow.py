@@ -1,16 +1,20 @@
-from PySide2 import QtCore, QtWidgets
+#
+# ToolWindow
+#
+# Authors: Stijn Wopereis
+# Description: dialog widget for the helper tools
+#
+# Copyright (c) Stijn Wopereis, 2018
+
+from PySide2 import QtCore, QtGui, QtWidgets
 
 import maya.cmds as cmds
 
 import MQtUtil
 
-from Qt import QtGui, QtCore
-
 from os.path import dirname, abspath, realpath, sep
 
 _ROOT_DIR = dirname(realpath(__file__))
-
-from gui.FrameWidget import FrameWidget
 
 
 class ToolWindow(QtWidgets.QDialog):

@@ -11,7 +11,7 @@ import inspect
 import sys
 
 from gui.MainWindow import MainWindow
-from gui.MQtUtil import getMainWindow, getPointerForWidget
+from gui.MQtUtil import getMainWindow
 
 from os.path import dirname
 
@@ -23,14 +23,17 @@ _ROOT_DIR = dirname(__file__)
 
 
 class AutoTool:
+    main_window = None
 
     def __init__(self):
-        self.main_window = MainWindow(getMainWindow())
+        if not self.main_window:
+            self.main_window = MainWindow(getMainWindow())
         self.main_window.show()
 
     def delete(self):
-        if not self.main_window is None:
+        if self.main_window:
             self.main_window.deleteLater()
+        # pass
 
 
 def resetSessionForScript(userPath=None):
@@ -46,13 +49,13 @@ def resetSessionForScript(userPath=None):
         try:
             moduleFilePath = inspect.getfile(module).lower()
 
-            logging.info("Current %s" % __file__.lower())
+            # logging.info("Current %s" % __file__.lower())
 
             if moduleFilePath == __file__.lower():
                 continue
 
             if moduleFilePath.startswith(userPath):
-                logging.info("Removing %s" % key)
+                # logging.info("Removing %s" % key)
                 toDelete.append(key)
         except:
             pass
@@ -62,7 +65,8 @@ def resetSessionForScript(userPath=None):
 
 
 try:
-    main.delete()
+    if not main is None:
+        main.delete()
 except NameError as e:
     pass
 
