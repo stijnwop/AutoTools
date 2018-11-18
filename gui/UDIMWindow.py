@@ -113,10 +113,10 @@ class UDIMWindow(QtWidgets.QDialog):
         self.button_move_left = QtWidgets.QPushButton("left")
         self.button_move_right = QtWidgets.QPushButton("right")
 
-        self.button_move_up.clicked.connect(lambda: self.moveUV(0, 1))
-        self.button_move_down.clicked.connect(lambda: self.moveUV(0, -1))
-        self.button_move_left.clicked.connect(lambda: self.moveUV(-1, 0))
-        self.button_move_right.clicked.connect(lambda: self.moveUV(1, 0))
+        self.button_move_up.clicked.connect(lambda: self.moveUV(0, 0.5))
+        self.button_move_down.clicked.connect(lambda: self.moveUV(0, -0.5))
+        self.button_move_left.clicked.connect(lambda: self.moveUV(-0.5, 0))
+        self.button_move_right.clicked.connect(lambda: self.moveUV(0.5, 0))
 
         self.mover_layout_first_box.addWidget(self.button_move_up)
         self.mover_layout_third_box.addWidget(self.button_move_down)

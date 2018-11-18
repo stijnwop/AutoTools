@@ -21,15 +21,16 @@ class UDIMUtil:
         self.current_v = 0.0
 
     def moveUVSelection(self, u, v):
-        self.current_u = u
-        self.current_v = v
-        cmds.polyMoveUV(tu=self.current_u, tv=self.current_v)
+        cmds.polyMoveUV(tu=u, tv=v)
 
     def moveUV(self, u, v):
         selection = getSelection()
 
         if selection is None:
             return
+
+        logging.info("move U by %s" % u)
+        logging.info("move V by %s" % v)
 
         for object in selection:
             # Focus on current object
@@ -49,11 +50,11 @@ class UDIMUtil:
             # logging.info("we are moved by: %s on U" % whole)
             if i < 0:
                 move_u = abs(whole) + 1
-                # logging.info("We just have to move right U by %s" % move_u)
+                logging.info("We just have to move right U by %s" % move_u)
                 break
             elif i > 1:
                 move_u = -whole
-                # logging.info("We just have to move left U by %s" % move_u)
+                logging.info("We just have to move left U by %s" % move_u)
                 break
 
         for i in v:
@@ -61,11 +62,11 @@ class UDIMUtil:
             # logging.info("we are moved by: %s on V" % whole)
             if i < 0:
                 move_v = abs(whole) + 1
-                # logging.info("We just have to move up V by %s" % move_v)
+                logging.info("We just have to move up V by %s" % move_v)
                 break
             elif i > 1:
                 move_v = -whole
-                # logging.info("We just have to move down V by %s" % move_v)
+                logging.info("We just have to move down V by %s" % move_v)
                 break
 
         step_u = 1
