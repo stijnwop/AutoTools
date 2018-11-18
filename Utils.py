@@ -1,3 +1,12 @@
+#
+# Utils
+#
+# Authors: Stijn Wopereis
+# Description: main utility for the application
+#
+# Copyright (c) Stijn Wopereis, 2018
+
+
 import logging
 
 logging.basicConfig()
