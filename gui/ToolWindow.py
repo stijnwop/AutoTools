@@ -12,7 +12,7 @@ import maya.cmds as cmds
 
 import MQtUtil
 
-from os.path import dirname, abspath, realpath, sep
+from os.path import dirname, realpath, sep
 
 _ROOT_DIR = dirname(realpath(__file__))
 
@@ -56,10 +56,10 @@ class ToolWindow(QtWidgets.QDialog):
         self.presetRadius.setMinimumHeight(30)
         self.compensate.setMinimumHeight(30)
 
-        self.resetPivotToZero.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icon_reset.png"))
-        self.resetJointOrientation.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icon_reset.png"))
-        self.presetRadius.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icon_radius.png"))
-        self.compensate.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icon.png"))
+        self.resetPivotToZero.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon_reset.png"))
+        self.resetJointOrientation.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon_reset.png"))
+        self.presetRadius.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon_radius.png"))
+        self.compensate.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon.png"))
 
         self.quickAccessLayoutReset.addWidget(self.resetPivotToZero)
         self.quickAccessLayoutReset.addWidget(self.resetJointOrientation)

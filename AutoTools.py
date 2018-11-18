@@ -11,7 +11,7 @@ import inspect
 import sys
 
 from gui.MainWindow import MainWindow
-from gui.MQtUtil import getMainWindow, getIsPointerValid
+from MQtUtil import getMainWindow, getIsPointerValid
 
 from os.path import dirname
 
