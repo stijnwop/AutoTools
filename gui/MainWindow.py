@@ -29,7 +29,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = parent
         self.window_name = 'autotools'
 
-        self.setWindowIcon(QtGui.QIcon(_ROOT_DIR + sep + "icon.png"))
+        self.setWindowIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon.png"))
 
         # self.main_layout = parent.layout()
         self.main_layout = QtWidgets.QVBoxLayout(self)

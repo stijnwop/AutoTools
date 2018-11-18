@@ -75,7 +75,7 @@ class UDIMWindow(QtWidgets.QDialog):
         amount_of_color_buttons = 8
         for i in range(amount_of_color_buttons):
             button = QtWidgets.QPushButton("Index - %s" % i, self)
-            button.clicked.connect(partial(self.presetUV, i, -1))
+            button.clicked.connect(partial(self.resetUVOnSelection, i, -1))
             if i >= amount_of_color_buttons / 2:
                 self.colors_b_layout_box.addWidget(button)
             else:
@@ -94,7 +94,7 @@ class UDIMWindow(QtWidgets.QDialog):
 
         for index, mat in enumerate(self.PREDEFINED_MATS):
             mat_button = QtWidgets.QPushButton(" %s - %s" % (mat["id"], mat["name"]), self.predefined_mats_scroll)
-            mat_button.clicked.connect(partial(self.presetUV, mat["u"], mat["v"]))
+            mat_button.clicked.connect(partial(self.resetUVOnSelection, mat["u"], mat["v"]))
             mat_button.setMinimumHeight(30)
             mat_button.setStyleSheet("QPushButton { text-align: left; }")
             layout.addRow(mat_button)
@@ -137,6 +137,6 @@ class UDIMWindow(QtWidgets.QDialog):
     def moveUV(self, u, v):
         self.udimUtil.moveUV(u, v)
 
-    def presetUV(self, u, v):
-        self.udimUtil.resetUV()
+    def resetUVOnSelection(self, u, v):
+        self.udimUtil.resetUVOnSelection()
         self.udimUtil.moveUV(u, v)

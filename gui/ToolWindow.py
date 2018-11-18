@@ -12,6 +12,7 @@ import maya.cmds as cmds
 
 import MQtUtil
 
+from Utils import zeroPivot, resetJointOrientation
 from os.path import dirname, realpath, sep
 
 _ROOT_DIR = dirname(realpath(__file__))
@@ -45,6 +46,10 @@ class ToolWindow(QtWidgets.QDialog):
         self.resetJointOrientation = QtWidgets.QPushButton("ResetJointOrientation", self)
         self.presetRadius = QtWidgets.QPushButton("PresetRadius", self)
         self.compensate = QtWidgets.QPushButton("Compensate", self)
+
+
+        self.resetPivotToZero.clicked.connect(lambda: zeroPivot())
+        self.resetJointOrientation.clicked.connect(lambda: resetJointOrientation())
 
         self.resetPivotToZero.setStyleSheet("QPushButton { text-align: left; }")
         self.resetJointOrientation.setStyleSheet("QPushButton { text-align: left; }")
