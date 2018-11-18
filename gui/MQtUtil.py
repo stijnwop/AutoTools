@@ -7,6 +7,7 @@
 # Copyright (c) Stijn Wopereis, 2018
 
 import logging
+
 logging.basicConfig()
 
 import maya.cmds as cmds
@@ -46,6 +47,10 @@ def getPointerForWidget(widget):
     return shiboken.getCppPointer(widget)
 
 
+def getIsPointerValid(widget):
+    return shiboken.isValid(widget)
+
+
 def deleteControl(control):
     if cmds.workspaceControl(control, q=True, exists=True):
         cmds.workspaceControl(control, e=True, close=True)
@@ -55,6 +60,7 @@ def deleteControl(control):
 def addControl(control, label, width):
     return cmds.workspaceControl(control, ttc=["AttributeEditor", -1], label=label)
 
+
 # noinspection PyBroadException
 def deleteUI(name):
     try:
@@ -62,6 +68,7 @@ def deleteUI(name):
         logger.info('removed workspace {}'.format(dialog_class.CONTROL_NAME))
     except:
         pass
+
 
 # noinspection PyBroadException
 def dockWindow(QtClass):

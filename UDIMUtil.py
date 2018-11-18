@@ -34,6 +34,7 @@ class UDIMUtil:
         u = [upox_uvs[i] for i in range(0, len(upox_uvs), 2)]
         v = [upox_uvs[i] for i in range(1, len(upox_uvs), 2)]
 
+        # TODO: optimize
         for i in u:
             frac, whole = math.modf(i)
             print "we are moved by: %s on U" % whole

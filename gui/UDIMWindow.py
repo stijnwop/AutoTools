@@ -6,7 +6,7 @@
 #
 # Copyright (c) Stijn Wopereis, 2018
 
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 
 from UDIMUtil import UDIMUtil
 
@@ -14,6 +14,38 @@ from functools import partial
 
 
 class UDIMWindow(QtWidgets.QDialog):
+    PREDEFINED_MATS = [
+        {'id': "00", 'name': "Painted metal", 'u': 0, 'v': 0},
+        {'id': "01", 'name': "Painted Plastic", 'u': 1, 'v': 0},
+        {'id': "02", 'name': "Chrome", 'u': 2, 'v': 0},
+        {'id': "03", 'name': "Copper", 'u': 3, 'v': 0},
+        {'id': "04", 'name': "Galvanized metal", 'u': 4, 'v': 0},
+        {'id': "05", 'name': "Rubber", 'u': 5, 'v': 0},
+        {'id': "06", 'name': "Painted metal old", 'u': 6, 'v': 0},
+        {'id': "07", 'name': "Fabric", 'u': 7, 'v': 0},
+        {'id': "08", 'name': "Silver scratched", 'u': 0, 'v': 1},
+        {'id': "09", 'name': "Silver bumpy", 'u': 1, 'v': 1},
+        {'id': "10", 'name': "Fabric 1", 'u': 2, 'v': 1},
+        {'id': "11", 'name': "Fabric 2", 'u': 3, 'v': 1},
+        {'id': "12", 'name': "Leather 1", 'u': 4, 'v': 1},
+        {'id': "13", 'name': "Leather 2", 'u': 5, 'v': 1},
+        {'id': "14", 'name': "Wood", 'u': 6, 'v': 1},
+        {'id': "15", 'name': "Dirt", 'u': 7, 'v': 1},
+        {'id': "16", 'name': "Painted metal", 'u': 0, 'v': 2},
+        {'id': "17", 'name': "Painted plastic", 'u': 1, 'v': 2},
+        {'id': "18", 'name': "Silver rough", 'u': 2, 'v': 2},
+        {'id': "19", 'name': "Brass scratched", 'u': 3, 'v': 2},
+        {'id': "20", 'name': "Reflector white", 'u': 4, 'v': 2},
+        {'id': "21", 'name': "Reflector red", 'u': 5, 'v': 2},
+        {'id': "22", 'name': "Reflector yellow", 'u': 6, 'v': 2},
+        {'id': "23", 'name': "Reflector daylight", 'u': 7, 'v': 2},
+        {'id': "24", 'name': "Gear-shift stick plastic", 'u': 0, 'v': 3},
+        {'id': "25", 'name': "Leather 3", 'u': 1, 'v': 3},
+        {'id': "26", 'name': "Perforated syntetic fabric", 'u': 2, 'v': 3},
+        {'id': "27", 'name': "Glass clear", 'u': 3, 'v': 3},
+        {'id': "28", 'name': "Glass square", 'u': 4, 'v': 3},
+        {'id': "29", 'name': "Glass line", 'u': 5, 'v': 3},
+    ]
 
     def __init__(self, parent=None):
         super(UDIMWindow, self).__init__(parent)
@@ -52,55 +84,25 @@ class UDIMWindow(QtWidgets.QDialog):
         self.colors_layout_grid.addLayout(self.colors_t_layout_box, 0, 0)
         self.colors_layout_grid.addLayout(self.colors_b_layout_box, 1, 0)
 
-        self.predefined_mats = [
-            "Painted metal",
-            "Painted Plastic",
-            "Chrome",
-            "Copper",
-            "Galvanized metal",
-            "Rubber",
-            "Painted metal old",
-            "Fabric",
-            "Silver scratched",
-            "Silver bumpy",
-            "Fabric 1",
-            "Fabric 2",
-            "Leather 1",
-            "Leather 2",
-            "Wood",
-            "Dirt",
-            "Painted metal",
-            "Painted plastic",
-            "Silver rough",
-            "Brass scratched",
-            "Reflector white",
-            "Reflector red",
-            "Reflector yellow",
-            "Reflector daylight",
-            "Gear-shift stick plastic",
-            "Leather 3",
-            "Perforated syntetic fabric",
-            "Glass clear",
-            "Glass square",
-            "Glass line"
-        ]
+        self.predefined_mats_scroll = QtWidgets.QScrollArea()
+        self.predefined_mats_scroll.setWidgetResizable(True)
 
-        widget = QtWidgets.QWidget()
-        layout = QtWidgets.QGridLayout(widget)
+        widget = QtWidgets.QWidget(self.predefined_mats_scroll)
+        layout = QtWidgets.QFormLayout(self.predefined_mats_scroll)
         layout.setSpacing(2)
         layout.setAlignment(QtCore.Qt.AlignTop)
 
-        for index, mat in enumerate(self.predefined_mats):
-            mat_button = QtWidgets.QPushButton(" %s - %s" % (index, mat), widget)
+        for index, mat in enumerate(self.PREDEFINED_MATS):
+            mat_button = QtWidgets.QPushButton(" %s - %s" % (mat["id"], mat["name"]), self.predefined_mats_scroll)
+            mat_button.clicked.connect(partial(self.presetUV, mat["u"], mat["v"]))
             mat_button.setMinimumHeight(30)
             mat_button.setStyleSheet("QPushButton { text-align: left; }")
-            layout.addWidget(mat_button)
-        # TODO: optimize
+            layout.addRow(mat_button)
 
-        self.predefined_mats_scroll = QtWidgets.QScrollArea(self)
         widget.setLayout(layout)
         self.predefined_mats_scroll.setWidget(widget)
 
+        # layout.addStretch()
         self.mover_layout_grid = QtWidgets.QGridLayout(self)
         self.mover_layout_first_box = QtWidgets.QHBoxLayout(self)
         self.mover_layout_second_box = QtWidgets.QHBoxLayout(self)

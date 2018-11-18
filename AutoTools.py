@@ -11,7 +11,7 @@ import inspect
 import sys
 
 from gui.MainWindow import MainWindow
-from gui.MQtUtil import getMainWindow
+from gui.MQtUtil import getMainWindow, getIsPointerValid
 
 from os.path import dirname
 
@@ -31,7 +31,7 @@ class AutoTool:
         self.main_window.show()
 
     def delete(self):
-        if self.main_window:
+        if getIsPointerValid(self.main_window):
             self.main_window.deleteLater()
         # pass
 
