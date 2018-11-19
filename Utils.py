@@ -19,8 +19,16 @@ def getSelection():
     return selection
 
 
+def getUVSelection():
+    return cmds.ls(sl=True, fl=True)
+
+
+def convertSelectionToUV():
+    cmds.select(cmds.polyListComponentConversion(tuv=True), r=True)
+
+
 def selectObject(object):
-    cmds.select(object)
+    cmds.select(object, r=True)
 
 
 def zeroPivot():
