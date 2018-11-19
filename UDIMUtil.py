@@ -17,14 +17,18 @@ from Utils import convertSelectionToUV, selectObject, getUVSelection, getSelecti
 
 class UDIMUtil:
     def __init__(self):
-        self.current_u = 0.0
-        self.current_v = 0.0
+        self.selection_buffer = []
 
-    def moveUVOnMap(self, map, u, v):
+    def __selectBuffer(self):
+        if self.selection_buffer:
+            for selection in self.selection_buffer:
+                cmds.select(selection, add=True)
+
+    def __moveUVOnMap(self, map, u, v):
         cmds.polyEditUV(map, uValue=u, vValue=v)
 
     def moveUVOnSelection(self, u, v):
-        selection_buffer = []
+        self.selection_buffer = []
         objects = getSelection()
 
         if objects is None:
@@ -38,17 +42,14 @@ class UDIMUtil:
             if upox is None:
                 return
 
-            self.moveUVOnMap(upox, u, v)
-            selection_buffer.append(upox)
+            self.__moveUVOnMap(upox, u, v)
+            self.selection_buffer.append(upox)
 
-        if selection_buffer:
-            for selection in selection_buffer:
-                cmds.select(selection, add=True)
+        self.__selectBuffer()
 
-    def moveUVToZeroSpace(self, map, uvs):
-        # Todo: replace this with a faster approach
-        u = [uvs[i] for i in range(0, len(uvs), 2)]
-        v = [uvs[i] for i in range(1, len(uvs), 2)]
+    def __moveUVToZeroSpace(self, map, uvs):
+        u = uvs[::2]
+        v = uvs[1::2]
 
         move_u = 0
         move_v = 0
@@ -73,10 +74,10 @@ class UDIMUtil:
                 move_v = -whole
                 break
 
-        self.moveUVOnMap(map, move_u, move_v)
+        self.__moveUVOnMap(map, move_u, move_v)
 
-    def processUVReset(self):
-        selection_buffer = []
+    def resetUVOnSelection(self):
+        self.selection_buffer = []
         objects = getSelection()
 
         if objects is None:
@@ -91,12 +92,7 @@ class UDIMUtil:
                 return
 
             uvs = cmds.polyEditUVShell(upox, query=True)
-            self.moveUVToZeroSpace(upox, uvs)
-            selection_buffer.append(upox)
+            self.__moveUVToZeroSpace(upox, uvs)
+            self.selection_buffer.append(upox)
 
-        if selection_buffer:
-            for selection in selection_buffer:
-                cmds.select(selection, add=True)
-
-    def resetUVOnSelection(self):
-        self.processUVReset()
+        self.__selectBuffer()
