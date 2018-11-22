@@ -12,7 +12,7 @@ import logging
 
 logging.basicConfig()
 
-from Utils import convertSelectionToUV, selectObject, getUVSelection, getSelection
+from Utils import convertSelectionToUV, selectObject, getUVSelection
 
 
 class UDIMUtil:
@@ -29,21 +29,19 @@ class UDIMUtil:
 
     def moveUVOnSelection(self, u, v):
         self.selection_buffer = []
-        objects = getSelection()
+        objects = getUVSelection()
 
         if objects is None:
             return
 
-        for object in objects:
-            selectObject(object)
-            convertSelectionToUV()
-            upox = getUVSelection()
+        convertSelectionToUV()
+        upox = getUVSelection()
 
-            if upox is None:
-                return
+        if upox is None:
+            return
 
-            self.__moveUVOnMap(upox, u, v)
-            self.selection_buffer.append(upox)
+        self.__moveUVOnMap(upox, u, v)
+        self.selection_buffer.append(upox)
 
         self.__selectBuffer()
 
@@ -78,7 +76,7 @@ class UDIMUtil:
 
     def resetUVOnSelection(self):
         self.selection_buffer = []
-        objects = getSelection()
+        objects = getUVSelection()
 
         if objects is None:
             return

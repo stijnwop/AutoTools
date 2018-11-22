@@ -6,29 +6,27 @@
 #
 # Copyright (c) Stijn Wopereis, 2018
 
-
+import maya.cmds as cmds
 import logging
 
 logging.basicConfig()
 
-import maya.cmds as cmds
-
 
 def getSelection():
-    selection = cmds.ls(sl=True, o=True)
+    selection = cmds.ls(selection=True, objectsOnly=True)
     return selection
 
 
 def getUVSelection():
-    return cmds.ls(sl=True, fl=True)
+    return cmds.ls(selection=True)
 
 
 def convertSelectionToUV():
-    cmds.select(cmds.polyListComponentConversion(tuv=True), r=True)
+    cmds.select(cmds.polyListComponentConversion(toUV=True), replace=True)
 
 
 def selectObject(object):
-    cmds.select(object, r=True)
+    cmds.select(object, replace=True)
 
 
 def zeroPivot():
@@ -38,7 +36,7 @@ def zeroPivot():
         logging.info("Nothing selected!")
 
     for node in selection:
-        _zeroPivot(node)
+        __zeroPivot(node)
 
 
 def resetJointOrientation():
@@ -48,12 +46,12 @@ def resetJointOrientation():
         logging.info("Nothing selected!")
 
     for node in selection:
-        _resetJointOrientation(node)
+        __resetJointOrientation(node)
 
 
-def _zeroPivot(node):
-    cmds.xform(node, os=True, ws=True, pivots=[0, 0, 0])
+def __zeroPivot(node):
+    cmds.xform(node, objectSpace=True, worldSpace=True, pivots=[0, 0, 0])
 
 
-def _resetJointOrientation(node):
-    cmds.joint(node, e=True, zso=True, o=[0, 0, 0])
+def __resetJointOrientation(node):
+    cmds.joint(node, e=True, zeroScaleOrient=True, orientation=[0, 0, 0])
