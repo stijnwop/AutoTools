@@ -13,14 +13,14 @@ logging.basicConfig()
 
 
 def selectHardEdges():
-    # cmds.selectMode(pe=True)
+    cmds.selectMode(pe=True)
     cmds.polySelectConstraint(m=3, t=0x8000, sm=1)
     # reset constraint
     cmds.polySelectConstraint(m=0, t=0x8000, sm=0)
 
 
 def selectSoftEdges():
-    # cmds.selectMode(pe=True)
+    cmds.selectMode(pe=True)
     cmds.polySelectConstraint(m=3, t=0x8000, sm=2)
     # reset constraint
     cmds.polySelectConstraint(m=0, t=0x8000, sm=0)
