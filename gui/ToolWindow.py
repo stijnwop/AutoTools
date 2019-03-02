@@ -12,7 +12,7 @@ import maya.cmds as cmds
 
 import MQtUtil
 
-from Utils import zeroPivot, resetJointOrientation
+from Utils import zeroPivot, resetJointOrientation, selectHardEdges, selectSoftEdges
 from os.path import dirname, realpath, sep
 
 _ROOT_DIR = dirname(realpath(__file__))
@@ -38,28 +38,37 @@ class ToolWindow(QtWidgets.QDialog):
         self.quickAccessLayoutGrid = QtWidgets.QGridLayout()
         self.quickAccessLayoutReset = QtWidgets.QHBoxLayout()
         self.quickAccessLayoutFix = QtWidgets.QHBoxLayout()
+        self.quickAccessLayoutEdges = QtWidgets.QHBoxLayout()
         self.quickAccessLayoutGrid.setSpacing(2)
         self.quickAccessLayoutReset.setSpacing(2)
         self.quickAccessLayoutFix.setSpacing(2)
+        self.quickAccessLayoutEdges.setSpacing(2)
 
         self.resetPivotToZero = QtWidgets.QPushButton("ResetPivotToZero", self)
         self.resetJointOrientation = QtWidgets.QPushButton("ResetJointOrientation", self)
         self.presetRadius = QtWidgets.QPushButton("PresetRadius", self)
         self.compensate = QtWidgets.QPushButton("Compensate", self)
-
+        self.hardEdges = QtWidgets.QPushButton("SelectHardEdges", self)
+        self.softEdges = QtWidgets.QPushButton("SelectSoftEdges", self)
 
         self.resetPivotToZero.clicked.connect(lambda: zeroPivot())
         self.resetJointOrientation.clicked.connect(lambda: resetJointOrientation())
+        self.hardEdges.clicked.connect(lambda: selectHardEdges())
+        self.softEdges.clicked.connect(lambda: selectSoftEdges())
 
         self.resetPivotToZero.setStyleSheet("QPushButton { text-align: left; }")
         self.resetJointOrientation.setStyleSheet("QPushButton { text-align: left; }")
         self.presetRadius.setStyleSheet("QPushButton { text-align: left; }")
         self.compensate.setStyleSheet("QPushButton { text-align: left; }")
+        self.hardEdges.setStyleSheet("QPushButton { text-align: left; }")
+        self.softEdges.setStyleSheet("QPushButton { text-align: left; }")
 
         self.resetPivotToZero.setMinimumHeight(30)
         self.resetJointOrientation.setMinimumHeight(30)
         self.presetRadius.setMinimumHeight(30)
         self.compensate.setMinimumHeight(30)
+        self.hardEdges.setMinimumHeight(30)
+        self.softEdges.setMinimumHeight(30)
 
         self.resetPivotToZero.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon_reset.png"))
         self.resetJointOrientation.setIcon(QtGui.QIcon(_ROOT_DIR + sep + "icons/icon_reset.png"))
@@ -70,7 +79,10 @@ class ToolWindow(QtWidgets.QDialog):
         self.quickAccessLayoutReset.addWidget(self.resetJointOrientation)
         self.quickAccessLayoutFix.addWidget(self.presetRadius)
         self.quickAccessLayoutFix.addWidget(self.compensate)
+        self.quickAccessLayoutEdges.addWidget(self.hardEdges)
+        self.quickAccessLayoutEdges.addWidget(self.softEdges)
 
+        self.quickAccessLayoutGrid.addLayout(self.quickAccessLayoutEdges, 2, 0)
         self.quickAccessLayoutGrid.addLayout(self.quickAccessLayoutReset, 0, 0)
         self.quickAccessLayoutGrid.addLayout(self.quickAccessLayoutFix, 1, 0)
 
@@ -83,7 +95,6 @@ class ToolWindow(QtWidgets.QDialog):
         qFrameLayout = MQtUtil.getWidgetByName(layout)
         qFrameLayout.event = None
         qLayout = QtWidgets.QVBoxLayout(qFrameLayout)
-        jointTitl2e = QtWidgets.QLabel("Test")
         # qLayout.addWidget(jointTitl2e)
         qFrameLayout.setLayout(qLayout)
 
