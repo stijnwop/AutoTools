@@ -45,6 +45,15 @@ class UDIMWindow(QtWidgets.QDialog):
         {'id': "27", 'name': "Glass clear", 'u': 3, 'v': 3},
         {'id': "28", 'name': "Glass square", 'u': 4, 'v': 3},
         {'id': "29", 'name': "Glass line", 'u': 5, 'v': 3},
+        {'id': "30", 'name': "Palladium", 'u': 6, 'v': 3},
+        {'id': "31", 'name': "Bronze", 'u': 7, 'v': 3},
+        {'id': "32", 'name': "Graphite black painted metal", 'u': 0, 'v': 4},
+        {'id': "33", 'name': "Half metal noise", 'u': 1, 'v': 4},
+        {'id': "34", 'name': "Gray shiny plastic", 'u': 2, 'v': 4},
+        {'id': "35", 'name': "Gold", 'u': 3, 'v': 4},
+        {'id': "36", 'name': "Rough painted metal", 'u': 4, 'v': 4},
+        {'id': "37", 'name': "Perforated syntetic 02", 'u': 5, 'v': 4},
+        {'id': "38", 'name': "Fell", 'u': 6, 'v': 4},
     ]
 
     def __init__(self, parent=None):
