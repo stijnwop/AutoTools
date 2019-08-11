@@ -65,10 +65,7 @@ class UDIMUtil:
         for i in v:
             _, whole = math.modf(i)
             # logging.info("we are moved by: %s on V" % whole)
-            if i < 0:
-                move_v = abs(whole) + 1
-                break
-            elif i > 1:
+            if (i < 0) or (i > 1):
                 move_v = -whole
                 break
 
