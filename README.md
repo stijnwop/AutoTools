@@ -6,7 +6,7 @@ Maya tooling for the content creators.
 
 ## Supports:
 - Quick util functions
-- UDIM
+- UDIM with FS materials.
 
 ## How to install:
 
@@ -25,4 +25,7 @@ sys.path.append('C:/Users/X/Documents/maya/201X/scripts/AutoTools')
 import AutoTools
 reload(AutoTools)
 ```
+
+If you're not copying this from GitHub than don't include the quoted part (`) with python in it.
+
 9. Go back to the 'Shelves' tab and click on the button 'Save All Shelves'
