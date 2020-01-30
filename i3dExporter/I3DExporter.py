@@ -35,7 +35,7 @@ g_exportSkinnedMergeVolumes = {}
 g_exportSkinnedMergeRootNodes = {}
 g_exportXMLIdentifiers = {}
 
-VERSION = '8.0.1'
+VERSION = '8.0.2'
 
 export_PolyCount = 0
 export_ObjectCount = 0

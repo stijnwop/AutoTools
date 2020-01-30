@@ -11,6 +11,11 @@ for installation details
 Change log
 ----------
 
+8.0.2 (30.01.2020)
+ - Added support for user attributes (Wopster)
+
+8.0.1 (10.01.2020)
+ - Added support for Maya 2019 and Maya 2020
 
 8.0.0 (04.10.2018)
 ------------------
