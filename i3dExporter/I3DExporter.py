@@ -468,6 +468,9 @@ def I3DOnSelectionChanged():
             cmds.textField(UI_CONTROL_STRING_NODE_INDEX, edit=True, text=index)
             cmds.textField(UI_CONTROL_STRING_NODE_NAME, edit=True, text=obj[0])
             cmds.textField(UI_CONTROL_STRING_IDENTIFIER, edit=True, text=I3DGetAttributeValue(obj[0], 'i3D_xmlIdentifier', ''))
+
+            # UA: We hook here to update selection.
+            UserAttributes.main.updateCurrentSelectionNode(index, obj[0])
         return
 
 def I3DCloseExporter():
@@ -854,10 +857,10 @@ def I3DExport():
                                                       (variationsFrame, 'bottom', 40), (variationsFrame, 'left', 2), (variationsFrame, 'right', 2),
                                                       (buttonAdd, 'left', 2), (buttonAdd, 'right', 2), (buttonAdd, 'bottom', 2)))
 
-
-
-
-    cmds.tabLayout( tabs, edit=True, parent=form, cr=True, tabLabel=((tabExport, 'Export'), (tabAttributes, 'Attributes'), (tabTools, 'Tools'), (tabShader, 'Shader')), width=WINDOW_WIDTH)
+    # TAB USER ATTRIBUTES
+    tabUserAttributes = UserAttributes.main.initUI(parent=tabs)
+    cmds.tabLayout(tabs, edit=True, parent=form, cr=True, tabLabel=(
+        (tabExport, 'Export'), (tabAttributes, 'Attributes'), (tabTools, 'Tools'), (tabShader, 'Shader'), (tabUserAttributes, 'User Attributes')), width=WINDOW_WIDTH)
 
     # if hasattr(cmds, 'dockControl'):
         # width = cmds.optionVar( q='GIANTS_EXPORTER_WIDTH' )
@@ -3080,3 +3083,7 @@ SETTINGS_SKELETONS.append({'name': 'Player', 'func':I3DCreatePlayer})
 SETTINGS_SKELETONS.append({'name': 'Lights', 'func':I3DCreateLights})
 SETTINGS_SKELETONS.append({'name': 'Cameras (Tractor)', 'func':I3DCreateCamerasVehicle})
 SETTINGS_SKELETONS.append({'name': 'Cameras (Combine)', 'func':I3DCreateCamerasHarvester})
+
+# UA: Import at the end as we use dependencies.
+import UserAttributes as UserAttributes
+reload(UserAttributes)
