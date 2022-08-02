@@ -37,7 +37,7 @@ class UDIMWindow(QtWidgets.QDialog):
         {'id': "19", 'name': "Brass scratched", 'u': 3, 'v': 2},
         {'id': "20", 'name': "Reflector white", 'u': 4, 'v': 2},
         {'id': "21", 'name': "Reflector red", 'u': 5, 'v': 2},
-        {'id': "22", 'name': "Reflector yellow", 'u': 6, 'v': 2},
+        {'id': "22", 'name': "Reflector orange", 'u': 6, 'v': 2},
         {'id': "23", 'name': "Reflector daylight", 'u': 7, 'v': 2},
         {'id': "24", 'name': "Gear-shift stick plastic", 'u': 0, 'v': 3},
         {'id': "25", 'name': "Leather 3", 'u': 1, 'v': 3},
@@ -54,6 +54,17 @@ class UDIMWindow(QtWidgets.QDialog):
         {'id': "36", 'name': "Rough painted metal", 'u': 4, 'v': 4},
         {'id': "37", 'name': "Perforated syntetic 02", 'u': 5, 'v': 4},
         {'id': "38", 'name': "Fell", 'u': 6, 'v': 4},
+        {'id': "39", 'name': "Metal Diamond Plate", 'u': 7, 'v': 4},
+        {'id': "40", 'name': "Shiny Car Paint", 'u': 0, 'v': 5},
+        {'id': "41", 'name': "Fabric 3", 'u': 1, 'v': 5},
+        {'id': "42", 'name': "Wood 2", 'u': 2, 'v': 5},
+        {'id': "43", 'name': "Silver Scratched Shiny", 'u': 3, 'v': 5},
+        {'id': "44", 'name': "Reflector yellow", 'u': 4, 'v': 5},
+        {'id': "45", 'name': "Circular Brushed", 'u': 5, 'v': 5},
+        {'id': "46", 'name': "Rubber Patterned", 'u': 6, 'v': 5},
+        {'id': "47", 'name': "Gray Plastic Shiny", 'u': 7, 'v': 5},
+        {'id': "48", 'name': "Chrome Less Shinny", 'u': 0, 'v': 6},
+        {'id': "49", 'name': "Cast Aluminium", 'u': 1, 'v': 6},
     ]
 
     def __init__(self, parent=None):
